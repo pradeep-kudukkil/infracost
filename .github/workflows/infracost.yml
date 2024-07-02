@@ -1,0 +1,27 @@
+name: Infracost Cost Estimation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  infracost:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false  # Set to true if you want to use the Terraform wrapper
+
+      - name: Install Infracost
+        run: |
+          curl -sSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
+
+      - name: Upload Infracost JSON report
+        if: success()
+        run: |
+          infracost configure set api_key "ico-po7sOIfhzF4VzZUkdHf0k1Ipr1N5BPsf"
+          infracost breakdown --path .
