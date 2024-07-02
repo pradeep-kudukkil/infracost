@@ -14,14 +14,13 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_wrapper: false  # Set to true if you want to use the Terraform wrapper
+          terraform_wrapper: false  
 
       - name: Install Infracost
         run: |
           curl -sSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
 
-      - name: Upload Infracost JSON report
-        if: success()
+      - name: Checking cost
         run: |
           infracost configure set api_key "ico-po7sOIfhzF4VzZUkdHf0k1Ipr1N5BPsf"
           infracost breakdown --path .
