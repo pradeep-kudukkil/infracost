@@ -22,5 +22,5 @@ jobs:
 
       - name: Checking cost
         run: |
-          infracost configure set api_key "ico-po7sOIfhzF4VzZUkdHf0k1Ipr1N5BPsf"
+          infracost configure set api_key "${{ secrets.INFRACOST_API_KEY }}"
           infracost breakdown --path .
